@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Electrician — Sample Website by Luxcoda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{--navy:#0C1929;--dark:#111E30;--blue:#2563EB;--blue-light:#3B82F6;--yellow:#FBBF24;--white:#F1F5F9;--off-white:#E2E8F0;--gray:#64748B;--light:#F8FAFC}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Archivo',sans-serif;background:var(--light);color:var(--navy);overflow-x:hidden}
+        .anim{opacity:0;transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}.a-up{transform:translateY(40px)}.a-left{transform:translateX(-50px)}.a-right{transform:translateX(50px)}.a-scale{transform:scale(.92)}.anim.vis{opacity:1;transform:none}
+        .d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}.d5{transition-delay:.35s}
+
+        nav{background:var(--navy);padding:1.1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+        .nav-brand{font-size:1.3rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:-.5px}.nav-brand span{color:var(--yellow)}
+        .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}.nav-links a{text-decoration:none;color:var(--gray);font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:color .3s}.nav-links a:hover{color:var(--white)}
+        .nav-cta{background:var(--yellow)!important;color:var(--navy)!important;padding:.55rem 1.4rem;border-radius:6px;font-weight:700!important}
+        .mob-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer}.mob-btn span{width:22px;height:2px;background:var(--white)}
+
+        .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--dark) 100%);padding:5rem 2rem;position:relative;overflow:hidden}
+        .hero-bolt{position:absolute;right:10%;top:50%;transform:translateY(-50%);font-size:15rem;opacity:.04}
+        .hero-inner{max-width:700px;position:relative;z-index:2}
+        .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:6px;font-size:.72rem;font-weight:700;color:var(--yellow);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.5rem}
+        .hero h1{font-size:clamp(2.5rem,6vw,3.8rem);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:1.2rem}.hero h1 span{color:var(--yellow)}
+        .hero-sub{font-size:1rem;color:var(--gray);line-height:1.8;margin-bottom:2.5rem;max-width:500px}
+        .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+        .btn-yellow{display:inline-block;padding:.9rem 2.2rem;background:var(--yellow);color:var(--navy);text-decoration:none;font-weight:700;font-size:.88rem;border-radius:6px;transition:all .3s}.btn-yellow:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(251,191,36,.2)}
+        .btn-ghost{display:inline-block;padding:.9rem 2.2rem;border:1px solid rgba(255,255,255,.12);color:var(--white);text-decoration:none;font-weight:500;font-size:.88rem;border-radius:6px;transition:all .3s}.btn-ghost:hover{border-color:rgba(255,255,255,.3)}
+        .hero-trust{display:flex;gap:2.5rem;flex-wrap:wrap}.hero-trust-item .num{font-size:1.8rem;font-weight:800;color:var(--yellow)}.hero-trust-item .lbl{font-size:.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px}
+
+        .services{padding:5rem 2rem}.srv-inner{max-width:1000px;margin:0 auto}
+        .srv-header{text-align:center;margin-bottom:3rem}
+        .stag{font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:.8rem;display:block}
+        .srv-header h2{font-size:2.2rem;font-weight:800;color:var(--navy)}
+        .srv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+        .srv-card{background:white;border:1px solid rgba(0,0,0,.04);border-radius:10px;padding:1.8rem 1.5rem;text-align:center;transition:all .3s}.srv-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.06);border-color:var(--blue)}
+        .srv-icon{font-size:2rem;margin-bottom:.8rem}
+        .srv-card h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+        .srv-card p{font-size:.78rem;color:var(--gray);line-height:1.7}
+
+        .why{padding:5rem 2rem;background:var(--navy)}.why-inner{max-width:800px;margin:0 auto;text-align:center}
+        .why h2{font-size:2.2rem;font-weight:800;color:var(--white);margin-bottom:1rem}
+        .why p{color:var(--gray);font-size:1rem;line-height:1.8;max-width:600px;margin:0 auto 2.5rem}
+        .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+        .why-item{background:var(--dark);border-radius:10px;padding:1.8rem;border:1px solid rgba(255,255,255,.04);transition:all .3s}.why-item:hover{border-color:var(--yellow)}
+        .why-item h3{font-size:1rem;font-weight:700;color:var(--yellow);margin-bottom:.4rem}.why-item p{font-size:.82rem;color:var(--gray);line-height:1.7;text-align:left}
+
+        .reviews{padding:5rem 2rem}.rev-inner{max-width:900px;margin:0 auto}
+        .rev-header{text-align:center;margin-bottom:3rem}.rev-header h2{font-size:2.2rem;font-weight:800;color:var(--navy)}
+        .rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+        .rev-card{background:white;border:1px solid rgba(0,0,0,.04);border-radius:10px;padding:2rem;transition:all .3s}.rev-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.05)}
+        .rev-stars{color:var(--yellow);font-size:.85rem;margin-bottom:.8rem}
+        .rev-card p{font-size:.88rem;color:var(--navy);line-height:1.8;font-style:italic;margin-bottom:.8rem}
+        .rev-auth{font-weight:700;font-size:.82rem;color:var(--navy)}
+
+        .cta{padding:5rem 2rem;text-align:center}.cta-card{max-width:550px;margin:0 auto;background:var(--navy);border-radius:16px;padding:3.5rem 2.5rem}
+        .cta h2{font-size:2rem;font-weight:800;color:var(--white);margin-bottom:1rem}
+        .cta p{color:var(--gray);margin-bottom:2rem;line-height:1.7}
+        .cta-phone{font-size:2.2rem;font-weight:800;color:var(--yellow);text-decoration:none;display:block;margin-bottom:1.5rem}.cta-phone:hover{color:var(--white)}
+        .cta-info{display:flex;justify-content:center;gap:2.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap}
+        .cta-info-item{text-align:center}.cta-info-item strong{display:block;font-size:.82rem;color:var(--white);margin-bottom:.2rem}.cta-info-item span{font-size:.78rem;color:var(--gray)}
+
+        footer{background:var(--navy);padding:2rem;text-align:center;border-top:1px solid rgba(255,255,255,.04)}footer p{font-size:.72rem;color:var(--gray)}
+
+        .sample-banner{background:linear-gradient(135deg,#3B82F6,#7C3AED);padding:.8rem;text-align:center;font-size:.82rem;font-weight:600;color:white}.sample-banner a{color:white;text-decoration:underline}
+
+        @media(max-width:768px){.hero-content,.hero-inner{grid-template-columns:1fr!important}.nav-links{display:none}.mob-btn{display:flex}.nav-links.active{display:flex;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:1.5rem 2rem;gap:1rem}.hero{padding:3.5rem 1.5rem}.srv-grid{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="sample-banner">This is a sample website built by <a href="https://luxcoda.com">Luxcoda</a> — We build sites like this for local businesses</div>
+
+    <nav><a href="#" class="nav-brand">Local<span> Sparkie</span></a><ul class="nav-links" id="nL"><li><a href="#services">Services</a></li><li><a href="#why">Why Us</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#contact" class="nav-cta">&#9889; Emergency</a></li></ul><button class="mob-btn" id="mB" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+
+    <section class="hero"><div class="hero-bolt">⚡</div><div class="hero-inner" style="display:grid;grid-template-columns:1fr .8fr;gap:2.5rem;align-items:center;max-width:1000px"><div><div class="hero-badge">&#9889; Licensed & Insured</div><h1>Your local <span>sparkie.</span><br>Fast, fair & reliable.</h1><p class="hero-sub">From switchboard upgrades to full rewires — we do residential and commercial electrical work across Brisbane. 24/7 emergency call-outs available.</p><div class="hero-btns"><a href="tel:0400000000" class="btn-yellow">&#9889; Call Now</a><a href="#services" class="btn-ghost">Our Services</a></div><div style="margin-top:2rem;max-width:480px;background:rgba(251,191,36,.04);border:1px solid rgba(251,191,36,.12);border-radius:10px;padding:1.2rem 1.5rem"><div style="color:#FBBF24;font-size:.8rem;margin-bottom:.4rem">★★★★★</div><p style="font-size:.88rem;color:#64748B;font-style:italic;line-height:1.7;margin:0">"Called at 8pm on a Sunday because our power went out. He was here within 40 minutes. Absolute legend."</p><span style="font-size:.78rem;font-weight:700;color:#F1F5F9;margin-top:.4rem;display:block">— David R.</span></div><div class="hero-trust"><div class="hero-trust-item"><div class="num">4.9</div><div class="lbl">Google Rating</div></div><div class="hero-trust-item"><div class="num">85+</div><div class="lbl">Reviews</div></div><div class="hero-trust-item"><div class="num">12</div><div class="lbl">Years Experience</div></div></div><div style="aspect-ratio:3/4;background:rgba(251,191,36,.05);border:2px dashed rgba(251,191,36,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem"><span style="font-size:3rem">⚡</span><span style="font-size:.82rem;color:#64748B;font-weight:600">ELECTRICIAN IMAGE</span><span style="font-size:.7rem;color:#475569">Replace with real photo</span></div></div></section>
+
+    <section class="services" id="services"><div class="srv-inner"><div class="srv-header"><span class="stag anim a-up">Services</span><h2 class="anim a-up d1">What we do</h2></div><div class="srv-grid"><div class="srv-card anim a-up d1"><div class="srv-icon">&#128161;</div><h3>Lighting</h3><p>LED upgrades, downlights, outdoor & security lighting.</p></div><div class="srv-card anim a-up d2"><div class="srv-icon">&#9889;</div><h3>Switchboards</h3><p>Upgrades, safety switches, circuit breaker replacements.</p></div><div class="srv-card anim a-up d3"><div class="srv-icon">&#127968;</div><h3>Residential</h3><p>Full house rewires, power points, ceiling fans, smoke alarms.</p></div><div class="srv-card anim a-up d4"><div class="srv-icon">&#127970;</div><h3>Commercial</h3><p>Office fit-outs, data cabling, three-phase installations.</p></div><div class="srv-card anim a-up d5"><div class="srv-icon">&#9888;&#65039;</div><h3>Emergency 24/7</h3><p>Power outages, sparking outlets, urgent electrical faults.</p></div><div class="srv-card anim a-up d1"><div class="srv-icon">&#9728;&#65039;</div><h3>Solar</h3><p>Panel installation, inverter upgrades, battery storage.</p></div></div></div></section>
+
+    <section class="why" id="why"><div class="why-inner"><span class="stag anim a-up" style="color:var(--yellow)">Why Choose Us</span><h2 class="anim a-up d1">No cowboys. Just quality work.</h2><p class="anim a-up d2">We show up on time, do the job right, and clean up after ourselves. Simple as that.</p><div class="why-grid"><div class="why-item anim a-up d1"><h3>Licensed & Insured</h3><p>Fully licensed Queensland electrician with public liability and professional indemnity insurance.</p></div><div class="why-item anim a-up d2"><h3>Upfront Pricing</h3><p>We quote before we start. No hidden charges, no surprises on your bill.</p></div><div class="why-item anim a-up d3"><h3>Lifetime Warranty</h3><p>All our workmanship comes with a lifetime warranty. We stand behind every job.</p></div></div></div></section>
+
+    <section class="reviews" id="reviews"><div class="rev-inner"><div class="rev-header"><span class="stag anim a-up">Reviews</span><h2 class="anim a-up d1">What our customers say</h2></div><div class="rev-grid"><div class="rev-card anim a-left"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Called at 8pm on a Sunday because our power went out. He was here within 40 minutes and had everything sorted. Absolute legend."</p><div class="rev-auth">David R.</div></div><div class="rev-card anim a-up"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Had our whole house rewired and LED downlights installed. Tidy work, fair price, and finished ahead of schedule. Can't ask for more."</p><div class="rev-auth">Michelle L.</div></div><div class="rev-card anim a-right"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Best electrician we've used in Brisbane. Professional, on time, cleaned up everything. Already recommended to three neighbours."</p><div class="rev-auth">Andrew K.</div></div></div></div></section>
+
+    <section class="cta" id="contact"><div class="cta-card anim a-scale"><span class="stag" style="color:var(--yellow)">Get In Touch</span><h2>Need a sparkie?</h2><p>Call us for a free quote or 24/7 emergency service.</p><a href="tel:0400000000" class="cta-phone">0400 000 000</a><a href="tel:0400000000" class="btn-yellow">&#9889; Call Now</a><div class="cta-info"><div class="cta-info-item"><strong>&#128205; Area</strong><span>All of Brisbane<br>& surrounds</span></div><div class="cta-info-item"><strong>&#128336; Emergency</strong><span>24/7<br>Available</span></div><div class="cta-info-item"><strong>&#128176; Quotes</strong><span>Free<br>No obligation</span></div></div></div></section>
+
+    <footer><p>Local Electrician &middot; Sample Website by <a href="https://luxcoda.com" style="color:var(--yellow);text-decoration:none">Luxcoda</a></p></footer>
+
+    <script>
+    document.getElementById('mB').addEventListener('click',function(){document.getElementById('nL').classList.toggle('active')});
+    document.querySelectorAll('#nL a').forEach(function(l){l.addEventListener('click',function(){document.getElementById('nL').classList.remove('active')})});
+    var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('vis')})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.anim').forEach(function(el){obs.observe(el)});
+    </script>
+</body>
+</html>
