@@ -880,27 +880,27 @@
             <p class="section-desc">Here are some sample projects to show our design style. Your website will be custom-built around your brand.</p>
         </div>
         <div class="portfolio-grid">
-            <a href="samples/bakery.html" target="_blank" class="portfolio-card reveal" style="text-decoration:none;color:inherit;cursor:pointer;">
+            <div class="portfolio-card reveal">
                 <div class="portfolio-thumb" style="background: linear-gradient(135deg, #3B2617, #C8943E);">🍞</div>
                 <div class="portfolio-info">
                     <h3>Local Bakery</h3>
-                    <span>Sample Project · Click to view →</span>
+                    <span>Sample Project · Website Design</span>
                 </div>
-            </a>
-            <a href="samples/electrician.html" target="_blank" class="portfolio-card reveal" style="text-decoration:none;color:inherit;cursor:pointer;">
-                <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0C1929, #FBBF24);">⚡</div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1a2332, #3B82F6);">💈</div>
                 <div class="portfolio-info">
-                    <h3>Electrician</h3>
-                    <span>Sample Project · Click to view →</span>
+                    <h3>Barber Shop</h3>
+                    <span>Sample Project · Website Design</span>
                 </div>
-            </a>
-            <a href="samples/detailing.html" target="_blank" class="portfolio-card reveal" style="text-decoration:none;color:inherit;cursor:pointer;">
-                <div class="portfolio-thumb" style="background: linear-gradient(135deg, #09090B, #06B6D4);">🚗</div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1a2e1a, #4ade80);">🏋️</div>
                 <div class="portfolio-info">
-                    <h3>Car Detailing</h3>
-                    <span>Sample Project · Click to view →</span>
+                    <h3>Personal Trainer</h3>
+                    <span>Sample Project · Website Design</span>
                 </div>
-            </a>
+            </div>
         </div>
     </section>
 
@@ -1043,7 +1043,7 @@
             <div class="contact-method">
                 <div class="contact-icon">✉️</div>
                 <span>Email</span>
-                <a href="/cdn-cgi/l/email-protection#2b4e455a5e4259424e586b475e5348444f4a05484446"><span class="__cf_email__" data-cfemail="6a0f041b1f0318030f192a061f1209050e0b44090507">[email&#160;protected]</span></a>
+                <a href="mailto:enquiries@luxcoda.com">enquiries@luxcoda.com</a>
             </div>
             <div class="contact-method">
                 <div class="contact-icon">
@@ -1067,7 +1067,7 @@
         <p>&copy; 2026 Luxcoda. All rights reserved. Brisbane, Australia.</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Navbar scroll
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -1084,4 +1084,13 @@
 
         // Scroll reveal
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry =>
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
