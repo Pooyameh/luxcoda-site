@@ -23,7 +23,7 @@
   --text:#f0eeff;--text2:#ccc8e8;--text3:#9896b8;
   --border:rgba(94,174,255,0.12);--border2:rgba(168,85,247,0.4);
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text2);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
 ::selection{background:var(--purple);color:#fff}
 a{text-decoration:none;color:inherit}
@@ -119,12 +119,12 @@ section{padding:7rem 0}
 .hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2.5rem;opacity:0}
 .hero-sub{font-size:1rem;line-height:1.85;color:var(--text2);max-width:420px}
 .hero-actions{display:flex;gap:1rem;align-items:center;flex-shrink:0}
-.hero-scroll-cue{position:absolute;bottom:2.5rem;left:2.8rem;display:flex;align-items:center;gap:1rem;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--text3);z-index:2;opacity:0}
-.hero-scroll-cue::after{content:'';display:block;width:48px;height:1px;background:linear-gradient(to right,var(--text3),transparent)}
-/* let's talk pill — inline in hero-actions */
-.hero-talk-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 2rem;border-radius:50px;background:transparent;color:var(--text);font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.3px;border:1px solid var(--border2);cursor:pointer;white-space:nowrap;transition:background .3s,box-shadow .3s,transform .3s cubic-bezier(.34,1.56,.64,1)}
-.hero-talk-btn:hover{background:rgba(168,85,247,.1);box-shadow:0 0 24px rgba(168,85,247,.22);transform:translateY(-2px)}
-.hero-talk-btn .pill-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;animation:pillDot 2s ease-in-out infinite}
+.hero-scroll-cue{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--text3);z-index:2;opacity:0}
+.hero-scroll-cue::after{content:'';display:block;width:1px;height:40px;background:linear-gradient(to bottom,var(--text3),transparent)}
+/* floating talk button */
+.float-talk{position:fixed;bottom:2rem;right:2rem;z-index:500;display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.8rem;border-radius:50px;background:rgba(8,8,32,.92);color:var(--text);font-family:'Manrope',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.3px;border:1px solid var(--border2);cursor:pointer;transition:background .3s,box-shadow .3s,transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 32px rgba(0,0,0,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.float-talk:hover{background:rgba(168,85,247,.18);box-shadow:0 12px 40px rgba(168,85,247,.28);transform:translateY(-2px)}
+.float-talk .pill-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;animation:pillDot 2s ease-in-out infinite}
 @keyframes pillDot{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
 
 /* ══════════════════════════════════════════════
@@ -137,24 +137,21 @@ section{padding:7rem 0}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ══════════════════════════════════════════════
-   SERVICES — HORIZONTAL SCROLL
+   SERVICES — SCROLL REVEAL GRID
 ══════════════════════════════════════════════ */
-#services{padding:0}
-.svc-pin-outer{overflow-x:clip}
-.svc-sticky{height:100vh;overflow:visible;display:flex;flex-direction:column;justify-content:center;padding:5rem 0 4rem;transform:translateZ(0)}
-.svc-header{padding:0 2.8rem;max-width:1240px;margin:0 auto 3rem;width:100%}
-.svc-track{display:flex;padding:0 2.8rem;will-change:transform;gap:1.6rem;align-items:stretch}
-.svc-card{flex:0 0 min(420px,82vw);border:1px solid var(--border);border-radius:20px;padding:2.8rem;background:linear-gradient(145deg,rgba(255,255,255,.035) 0%,rgba(255,255,255,.01) 100%);display:flex;flex-direction:column;transition:border-color .4s;position:relative;overflow:hidden;min-height:380px}
-.svc-card::before{content:'';position:absolute;inset:0;border-radius:20px;background:var(--grad);opacity:0;transition:opacity .4s;z-index:0}
-.svc-card:hover{border-color:var(--border2)}
-.svc-card:hover::before{opacity:.05}
-.svc-card>*{position:relative;z-index:1}
-.svc-num{font-size:.65rem;font-weight:700;letter-spacing:3px;color:var(--blue);margin-bottom:1.8rem}
-.svc-icon{width:46px;height:46px;border-radius:12px;background:rgba(94,174,255,.08);border:1px solid rgba(94,174,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin-bottom:2rem;flex-shrink:0}
-.svc-card h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;color:var(--text);line-height:1.15;margin-bottom:1.2rem}
-.svc-card p{font-size:.9rem;line-height:1.85;color:var(--text2);flex:1}
+#services{padding:7rem 0;border-top:1px solid var(--border)}
+.svc-header{text-align:center;margin-bottom:4rem}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--border)}
+.svc-item{padding:3.2rem;position:relative;overflow:hidden;border-bottom:1px solid var(--border);opacity:0}
+.svc-item:nth-child(odd){border-right:1px solid var(--border)}
+.svc-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.svc-item:hover::before{transform:scaleX(1)}
+.svc-num{font-size:.62rem;font-weight:700;letter-spacing:3px;color:var(--blue);margin-bottom:1.6rem}
+.svc-icon{font-size:1.4rem;margin-bottom:1.6rem;color:rgba(94,174,255,.7);display:block}
+.svc-item h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--text);line-height:1.12;margin-bottom:1.1rem}
+.svc-item p{font-size:.9rem;line-height:1.85;color:var(--text2)}
 .svc-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
-.svc-tag{font-size:.65rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.28rem .8rem;border-radius:50px;border:1px solid var(--border);color:var(--text3)}
+.svc-tag{font-size:.65rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.25rem .75rem;border:1px solid var(--border);color:var(--text3)}
 
 /* ══════════════════════════════════════════════
    ABOUT
@@ -279,14 +276,13 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.8rem;display:flex;ali
   .hero-title{font-size:clamp(3.2rem,14vw,5rem);letter-spacing:-1.5px}
   .hero-bottom{flex-direction:column;align-items:flex-start;gap:1.5rem}
   .hero-actions{flex-direction:column;align-items:flex-start;width:100%}
-  .hero-actions .btn,.hero-talk-btn{width:100%;justify-content:center}
+  .hero-actions .btn{width:100%;justify-content:center}
   .hero-scroll-cue{left:1.5rem}
   .container{padding:0 1.5rem}
   section{padding:5rem 0}
-  .svc-sticky{height:auto;padding:5rem 0 3rem}
-  .svc-pin-outer{height:auto!important}
-  .svc-track{flex-direction:column;padding:0 1.5rem;gap:1.2rem}
-  .svc-card{flex:none;min-height:auto}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-item:nth-child(odd){border-right:none}
+  .float-talk{bottom:1.2rem;right:1.2rem;padding:.7rem 1.4rem;font-size:.72rem}
   .about-grid{grid-template-columns:1fr;gap:3rem}
   .about-deco{display:none}
   .work-head{flex-direction:column;align-items:flex-start;gap:1rem}
@@ -302,10 +298,8 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.8rem;display:flex;ali
 }
 /* TABLET 769–1024 */
 @media(min-width:769px) and (max-width:1024px){
-  .svc-sticky{height:auto;padding:6rem 0 4rem}
-  .svc-pin-outer{height:auto!important}
-  .svc-track{flex-wrap:wrap;padding:0 2.8rem;gap:1.4rem}
-  .svc-card{flex:0 0 calc(50% - .7rem)}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-item:nth-child(odd){border-right:none}
   .contact-grid{grid-template-columns:1fr;gap:4rem}
   .about-grid{gap:4rem}
   .contact-intro{max-width:100%}
@@ -369,9 +363,6 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.8rem;display:flex;ali
       <div class="hero-actions">
         <button class="btn btn-primary" id="mockupBtn">Claim Free Mock-up</button>
         <a href="#work" class="btn btn-ghost">See Our Work ↓</a>
-        <button class="hero-talk-btn" id="heroTalkBtn">
-          <span class="pill-dot"></span>Let's talk
-        </button>
       </div>
     </div>
   </div>
@@ -388,37 +379,39 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.8rem;display:flex;ali
 
 <!-- SERVICES -->
 <section id="services">
-  <div class="svc-pin-outer" id="svcPinOuter">
-    <div class="svc-sticky" id="svcSticky">
-      <div class="svc-header">
-        <p class="eyebrow">What We Do</p>
-        <h2 class="sec-title">Services Built <em>Around You</em></h2>
+  <div class="container">
+    <div class="svc-header">
+      <p class="eyebrow">What We Do</p>
+      <h2 class="sec-title">Services Built <em>Around You</em></h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-item">
+        <div class="svc-num">01</div>
+        <span class="svc-icon">◈</span>
+        <h3>Custom Web Design</h3>
+        <p>Visually stunning, mobile-first websites designed to represent your brand at its absolute best. No templates — every pixel purpose-built for you.</p>
+        <div class="svc-tags"><span class="svc-tag">UI / UX Design</span><span class="svc-tag">Mobile-First</span><span class="svc-tag">Brand-Led</span></div>
       </div>
-      <div class="svc-track" id="svcTrack">
-        <div class="svc-card">
-          <div class="svc-num">01</div><div class="svc-icon">◈</div>
-          <h3>Custom<br>Web Design</h3>
-          <p>Visually stunning, mobile-first websites designed to represent your brand at its absolute best. No templates — every pixel purpose-built for you.</p>
-          <div class="svc-tags"><span class="svc-tag">UI / UX Design</span><span class="svc-tag">Mobile-First</span><span class="svc-tag">Brand-Led</span></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-num">02</div><div class="svc-icon">◉</div>
-          <h3>SEO &amp;<br>Growth</h3>
-          <p>Get found by the right people in Brisbane and beyond. Strategic on-page optimisation that drives real organic traffic directly to your business.</p>
-          <div class="svc-tags"><span class="svc-tag">On-Page SEO</span><span class="svc-tag">Local SEO</span><span class="svc-tag">Google-Ready</span></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-num">03</div><div class="svc-icon">◎</div>
-          <h3>Speed &amp;<br>Performance</h3>
-          <p>Fast-loading, technically optimised sites that keep visitors engaged, reduce bounce, and send strong signals to search engines.</p>
-          <div class="svc-tags"><span class="svc-tag">Core Web Vitals</span><span class="svc-tag">Optimised Code</span><span class="svc-tag">Lean &amp; Fast</span></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-num">04</div><div class="svc-icon">⬡</div>
-          <h3>Ongoing<br>Support</h3>
-          <p>We don't disappear after launch. Ongoing care, updates, and improvements to keep your site secure, current, and performing at its best.</p>
-          <div class="svc-tags"><span class="svc-tag">Maintenance</span><span class="svc-tag">Updates</span><span class="svc-tag">Security</span></div>
-        </div>
+      <div class="svc-item">
+        <div class="svc-num">02</div>
+        <span class="svc-icon">◉</span>
+        <h3>SEO &amp; Growth</h3>
+        <p>Get found by the right people in Brisbane and beyond. Strategic on-page optimisation that drives real organic traffic directly to your business.</p>
+        <div class="svc-tags"><span class="svc-tag">On-Page SEO</span><span class="svc-tag">Local SEO</span><span class="svc-tag">Google-Ready</span></div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">03</div>
+        <span class="svc-icon">◎</span>
+        <h3>Speed &amp; Performance</h3>
+        <p>Fast-loading, technically optimised sites that keep visitors engaged, reduce bounce, and send strong signals to search engines.</p>
+        <div class="svc-tags"><span class="svc-tag">Core Web Vitals</span><span class="svc-tag">Optimised Code</span><span class="svc-tag">Lean &amp; Fast</span></div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">04</div>
+        <span class="svc-icon">⬡</span>
+        <h3>Ongoing Support</h3>
+        <p>We don't disappear after launch. Ongoing care, updates, and improvements to keep your site secure, current, and performing at its best.</p>
+        <div class="svc-tags"><span class="svc-tag">Maintenance</span><span class="svc-tag">Updates</span><span class="svc-tag">Security</span></div>
       </div>
     </div>
   </div>
@@ -604,10 +597,15 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.8rem;display:flex;ali
   </div>
 </div>
 
+<!-- FLOATING TALK BUTTON -->
+<button class="float-talk" id="floatTalkBtn">
+  <span class="pill-dot"></span>Let's Talk
+</button>
+
 <!-- LIBRARIES -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://unpkg.com/split-type"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lenis"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -716,7 +714,7 @@ gsap.ticker.lagSmoothing(0);
   var mx=0,my=0,rx=0,ry=0;
   window.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;gsap.set(cur,{x:mx,y:my});},{passive:true});
   gsap.ticker.add(function(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; gsap.set(ring,{x:rx,y:ry}); });
-  document.querySelectorAll('a,button,.svc-card,.work-card').forEach(function(el){
+  document.querySelectorAll('a,button,.svc-item,.work-card').forEach(function(el){
     el.addEventListener('mouseenter',function(){document.body.classList.add('cursor-hover')});
     el.addEventListener('mouseleave',function(){document.body.classList.remove('cursor-hover')});
   });
@@ -727,13 +725,13 @@ gsap.ticker.lagSmoothing(0);
 ══════════════════════════════════════════════ */
 (function(){
   var nav=document.getElementById('nav'),last=0,shown=true;
-  window.addEventListener('scroll',function(){
-    var y=window.scrollY;
+  lenis.on('scroll',function(e){
+    var y=e.scroll;
     nav.classList.toggle('scrolled',y>60);
     if(y>last&&y>220&&shown){nav.classList.add('nav-hidden');shown=false;}
     else if(y<last&&!shown){nav.classList.remove('nav-hidden');shown=true;}
     last=y;
-  },{passive:true});
+  });
 })();
 
 /* ══════════════════════════════════════════════
@@ -770,22 +768,15 @@ gsap.ticker.lagSmoothing(0);
 })();
 
 /* ══════════════════════════════════════════════
-   SERVICES HORIZONTAL SCROLL
+   SERVICES — SCROLL REVEAL
 ══════════════════════════════════════════════ */
 (function(){
-  if(!window.matchMedia('(min-width:1025px)').matches) return;
-  var track=document.getElementById('svcTrack');
-  var sticky=document.getElementById('svcSticky');
-  var pinOuter=document.getElementById('svcPinOuter');
-  function dist(){ return track.scrollWidth - sticky.offsetWidth; }
-  gsap.to(track,{
-    x:function(){ return -dist(); },
-    ease:'none',
-    scrollTrigger:{
-      trigger:pinOuter,start:'top top',end:function(){ return '+='+dist(); },
-      pin:sticky,pinSpacing:true,scrub:.8,
-      invalidateOnRefresh:true,anticipatePin:1
-    }
+  gsap.utils.toArray('.svc-item').forEach(function(item,i){
+    gsap.fromTo(item,
+      {opacity:0,y:60},
+      {opacity:1,y:0,duration:1,ease:'power3.out',delay:(i%2)*0.12,
+       scrollTrigger:{trigger:item,start:'top 87%',toggleActions:'play none none none'}}
+    );
   });
 })();
 
@@ -795,6 +786,13 @@ gsap.ticker.lagSmoothing(0);
 (function(){
   if(typeof SplitType==='undefined') return;
   document.querySelectorAll('.sec-title,.contact-heading').forEach(function(el){
+    if(el.querySelector('em')){
+      gsap.from(el,{
+        y:40,opacity:0,duration:.85,ease:'power3.out',
+        scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}
+      });
+      return;
+    }
     var split=new SplitType(el,{types:'words'});
     gsap.from(split.words,{
       y:55,opacity:0,duration:.85,stagger:.06,ease:'power3.out',
@@ -841,7 +839,7 @@ document.querySelectorAll('.work-card').forEach(function(card){
    SECTION BLOCK ENTRANCE
 ══════════════════════════════════════════════ */
 gsap.utils.toArray('section').forEach(function(section){
-  if(section.id==='hero') return;
+  if(section.id==='hero'||section.id==='services') return;
   gsap.fromTo(section,
     {opacity:0,y:50},
     {opacity:1,y:0,duration:1,ease:'power3.out',
@@ -913,7 +911,7 @@ gsap.from('.contact-item',{
   }
 
   var mockupTriggers=['mockupBtn','contactMockupBtn'];
-  var talkTriggers=['heroTalkBtn','aboutTalkBtn'];
+  var talkTriggers=['aboutTalkBtn','floatTalkBtn'];
   mockupTriggers.forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('click',function(){openModal('mockup')}); });
   talkTriggers.forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('click',function(){openModal('talk')}); });
 
